@@ -3,6 +3,24 @@
     padding: 0;
     box-sizing: border-box;
 }
+@font-face {
+    font-family: KozMinPro;
+    src: url("./fonts/KozMinPro-Regular.otf") format("opentype");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: KozMinPro;
+    src: url("./fonts/KozMinPro-Bold.otf") format("opentype");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: KozMinPro;
+    src: url("./fonts/KozMinPro-Light.otf") format("opentype");
+    font-weight: 300;
+}
+
 
 body {
     width: 100vw;
@@ -18,4 +36,28 @@ body {
     height: 100%;
     z-index: -1;
     border: none;
+}
+
+.links-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: center;
+}
+
+.nav-link {
+    display: inline-block;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    margin: 10px 20px;
+    cursor: pointer;
+    font-family: KozMinPro;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
 }
