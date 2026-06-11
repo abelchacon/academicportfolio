@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Abel Chacón Hoekstra — Work</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* WORK PAGE CUSTOM BACKGROUND (easy to replace) 
+           ----------------------------------------------
+           Replace the background-image URL below with your own image link.
+           You can use a local path (e.g., 'url(../images/bg.jpg)') 
+           or an absolute web address.
+        */
+        body.work-page {
+            background-image: url('https://images.unsplash.com/photo-1533134486753-c833f0ed4866?q=80&w=2070&auto=format'); /* ← CHANGE THIS LINK */
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #0a0a0a; /* fallback while image loads */
+        }
+
+        /* optional: subtle overlay to improve text readability (keeps elegance) */
+        body.work-page::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* make sure all interactive content stays above overlay */
+        .links-container,
+        .image-grid {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body class="work-page">
+    <!-- consistent navigation: home + about (mirrors index style but repositioned for work page) -->
+    <div class="links-container">
+        <a href="index.html" class="nav-link">home</a>
+        <a href="about.html" class="nav-link">about</a>
+    </div>
+
+    <!-- 6‑image grid: each image leads to a distinct page (replace href & image src as needed) -->
+    <div class="image-grid">
+        <!-- PROJECT 1 -->
+        <div class="grid-item">
+            <a href="project-one.html" class="project-link">
+                <img src="https://picsum.photos/id/20/400/320" alt="serene mountain landscape - project thumbnail" loading="lazy">
+                <div class="project-title">Mountain Echoes</div>
+            </a>
+        </div>
+        <!-- PROJECT 2 -->
+        <div class="grid-item">
+            <a href="project-two.html" class="project-link">
+                <img src="https://picsum.photos/id/30/400/320" alt="coffee and vintage typewriter - project thumbnail" loading="lazy">
+                <div class="project-title">Analog Rituals</div>
+            </a>
+        </div>
+        <!-- PROJECT 3 -->
+        <div class="grid-item">
+            <a href="project-three.html" class="project-link">
+                <img src="https://picsum.photos/id/42/400/320" alt="piano in golden light - project thumbnail" loading="lazy">
+                <div class="project-title">Nocturnes</div>
+            </a>
+        </div>
+        <!-- PROJECT 4 -->
+        <div class="grid-item">
+            <a href="project-four.html" class="project-link">
+                <img src="https://picsum.photos/id/76/400/320" alt="urban architecture abstract - project thumbnail" loading="lazy">
+                <div class="project-title">Concrete Poems</div>
+            </a>
+        </div>
+        <!-- PROJECT 5 -->
+        <div class="grid-item">
+            <a href="project-five.html" class="project-link">
+                <img src="https://picsum.photos/id/104/400/320" alt="quiet lake and forest - project thumbnail" loading="lazy">
+                <div class="project-title">Still Water</div>
+            </a>
+        </div>
+        <!-- PROJECT 6 -->
+        <div class="grid-item">
+            <a href="project-six.html" class="project-link">
+                <img src="https://picsum.photos/id/169/400/320" alt="sunset over desert dunes - project thumbnail" loading="lazy">
+                <div class="project-title">Horizon Lines</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- 
+        HOW TO CUSTOMIZE:
+        - background image: edit the url inside <style> block (body.work-page background-image)
+        - replace each image src with your own image files or external links
+        - change the href attributes to actual project pages (e.g., "works/mountains.html")
+        - project titles can be edited directly inside .project-title divs
+    -->
+</body>
+</html>
