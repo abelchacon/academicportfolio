@@ -35,6 +35,42 @@
             position: relative;
             z-index: 2;
         }
+
+        /* Image grid - fit all 6 images in viewport without scrolling, preserve aspect ratios */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 80px 20px 20px 20px;
+            width: 100vw;
+            height: calc(100vh - 80px);
+            overflow: hidden;
+            align-items: start;
+        }
+
+        .grid-item {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-link {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .grid-item img,
+        .grid-item video {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
     </style>
 </head>
 <body class="work-page">
@@ -54,33 +90,33 @@
         </div>
         <!-- PROJECT 2 -->
         <div class="grid-item">
-            <a href="project-two.html" class="project-link">
+            <a href="computervision.html" class="project-link">
                 <img src="asserts/Work2.png" loading="lazy">
             </a>
         </div>
         <!-- PROJECT 3 -->
         <div class="grid-item">
-            <a href="project-three.html" class="project-link">
+            <a href="yieldprediction.html" class="project-link">
                 <img src="asserts/Work3.png" loading="lazy">
             </a>
         </div>
         <!-- PROJECT 4 -->
         <div class="grid-item">
-            <a href="project-four.html" class="project-link">
-                <img src="asserts/Work4.pdf" loading="lazy">
+            <a href="suitabilityraster.html" class="project-link">
+                <img src="asserts/Work4.png" loading="lazy">
             </a>
         </div>
         <!-- PROJECT 5 -->
         <div class="grid-item">
-            <a href="project-five.html" class="project-link">
+            <a href="arcgisvisualizations.html" class="project-link">
                 <img src="asserts/Work5.jpg" loading="lazy">
             </a>
         </div>
         <!-- PROJECT 6 -->
         <div class="grid-item">
-            <a href="project-six.html" class="project-link">
+            <a href="changedetection2.html" class="project-link">
                 <video src="asserts/Work6.mov" loading="lazy" autoplay muted loop></video>
-            </a>
+            </a
         </div>
     </div>
 
