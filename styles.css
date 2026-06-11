@@ -70,5 +70,5 @@ body {
 
 
 .nav-link:hover {
-    text-decoration: fade-out 0.2s ease; /* Optional: Add a fade-out transition */
+    text-decoration: underline; /* Optional: Add a fade-out transition */
 }
