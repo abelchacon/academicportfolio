@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Abel Chacón Hoekstra — About</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ------------------------------
+           ABOUT PAGE SPECIFIC STYLES
+           (keeps global styles untouched)
+        -------------------------------- */
+        body.about-page {
+            overflow: hidden;
+            position: relative;
+            background-color: #0a0a0a; /* fallback */
+        }
+
+        /* ---- VIDEO BACKGROUND (local file from repo) ---- */
+        .bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.85; /* subtle fade for readability */
+        }
+
+        /* optional dark overlay to ensure text stands out */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ----- PORTRAIT IMAGE (middle left) ----- */
+        .portrait {
+            position: fixed;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: min(280px, 38vw);
+            height: auto;
+            border-radius: 2px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+            z-index: 15;
+            border: 1px solid rgba(255,255,240,0.2);
+        }
+
+        /* subtle hover effect (optional) */
+        .portrait:hover {
+            transform: translateY(-50%) scale(1.01);
+        }
+
+        /* ----- TEXT PANEL (top left, blurred glass layer) ----- */
+        .about-text {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            max-width: 460px;
+            width: 90%;
+            padding: 1.8rem 2rem;
+            background: rgba(20, 20, 25, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 245, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            font-family: KozMinPro, 'Times New Roman', serif;
+            color: #fefef7;
+            z-index: 20;
+            pointer-events: none;   /* allows clicking through to nav if needed, but nav is higher */
+        }
+
+        .about-text h1 {
+            font-size: 1.9rem;
+            font-weight: 300;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid rgba(255,245,200,0.8);
+            padding-left: 1rem;
+        }
+
+        .about-text p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-weight: 300;
+            margin: 0.8rem 0;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+
+    </style>
+</head>
+<body class="about-page">
+    <!-- LOCAL VIDEO BACKGROUND (stored in your repo) 
+         =================================================
+         Replace "video/background.mp4" with the actual path to your video file.
+         Supported formats: .mp4, .webm, .mov. 
+         If you want a fallback image, add poster="path/to/poster.jpg"
+    -->
+    <video class="bg-video" autoplay loop muted playsinline>
+        <source src="asserts/abel_backgroundcompress.mov" type="video/mp4">
+        <!-- add additional source if needed, e.g. webm -->
+        Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- PORTRAIT IMAGE (middle left) 
+         change src to your own image inside repo (e.g., "images/portrait.jpg")
+    -->
+    <img class="portrait" 
+         src="asserts/abel.jpg" 
+         alt="Abel Chacón Hoekstra portrait"
+            loading="lazy">
+    <!-- TEXT CONTENT with blurred glass effect (top left) -->
+    <div class="about-text">
+        <h1>Abel Chacón Hoekstra</h1>
+        <p>Artist & researcher based between Amsterdam and Mexico City. Working with moving image, archival traces, and embodied narratives.</p>
+        <p>His practice explores the friction between memory and materiality — often through slow cinema, expanded photography, and site-specific interventions.</p>
+        <p style="font-size:0.85rem; margin-top:1rem;">⸻  b. 1991, lives and works between NL & MX</p>
+    </div>
+
+    <!-- NAVIGATION (home + work) 
+         consistent with other pages, but placed at bottom-center for clarity 
+    -->
+    <div class="links-container2">
+        <a href="index.html" class="nav-link">home</a>
+        <a href="work.html" class="nav-link">work</a>
+    </div>
+
+    <!-- 
+        INSTRUCTIONS FOR CUSTOMIZATION (GitHub Pages ready)
+        ------------------------------------------------------
+        1. VIDEO: replace "video/background.mp4" with your actual file path.
+           Example: if your video is in 'assets/video/sea.mp4' → change src accordingly.
+           You can also use a webm or mov file.
+
+        2. PORTRAIT: replace "images/portrait.jpg" with your own image inside repo.
+           For best results, use square or vertical image (recommended aspect 3:4).
+           The portrait will appear centered vertically on the left side.
+
+        3. TEXT: edit the paragraphs inside .about-text as you like.
+           Keep the blurred glass layer — it adapts to any text length.
+
+        4. BACKGROUND OVERLAY: adjust rgba(0,0,0,0.3) in .video-overlay if you need darker/lighter.
+
+        5. All fonts & global styles are inherited from styles.css (KozMinPro).
+    -->
+</body>
+</html>
