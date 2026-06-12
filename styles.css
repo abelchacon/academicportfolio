@@ -125,17 +125,17 @@ body.about-page {
 }
 
 .about-text h1 {
-    font-size: 2.2rem;
-    font-weight: 300;
+    font-size: 16px;
+    font-weight: bold;
     letter-spacing: -0.3px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.0rem;
     border-left: none;
     padding-left: 0;
 }
 
 .about-text p {
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.5;
     font-weight: 300;
     margin: 1rem 0;
     text-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -254,7 +254,7 @@ body.work-page::before {
     flex-direction: column;
     justify-content: center;
     overflow-y: auto;
-    color: #eaeaea;
+    color: #fefef7;
     font-family: KozMinPro;
 }
 
@@ -265,6 +265,10 @@ body.work-page::before {
     line-height: 1.2;
     margin-bottom: 0.8rem;
     padding-left: 0.0rem;
+    max-width: 500px;
+
+
+
 }
 
 .project-description {
@@ -278,7 +282,7 @@ body.work-page::before {
 
 .download-link {
     font-size: 14px;
-    color: rgb(230, 230, 230);
+    color: #fefef7;
     text-decoration: none;
     cursor: pointer;
     font-family: KozMinPro;
@@ -291,7 +295,7 @@ body.work-page::before {
 
 .skills-title {
     font-size: 14px;
-    color: rgba(240, 240, 240, 0.86);
+    color: #fefef7;
     margin-bottom: 0.0rem;
     font-weight: bold;
 }
@@ -300,7 +304,9 @@ body.work-page::before {
     flex-wrap: wrap;
     font-size: 14px;
     font-weight: normal;
-    color: rgba(240, 240, 240, 0.86);
+    color: #fefef7;
+    max-width: 500px;
+
     gap: 4px;
 }
 
@@ -322,6 +328,17 @@ body.work-page::before {
     object-fit: contain;
     border-radius: 4px;
 }
+
+.project-video {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;  /* ensures the entire video is visible without cropping */
+    border-radius: 4px;
+    display: block;       /* removes extra spacing below the video */
+}
+
 
 /* Responsive - stack on smaller screens */
 @media (max-width: 1024px) {
