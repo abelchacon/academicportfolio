@@ -69,5 +69,219 @@ body {
 
 .nav-link:hover {
     text-decoration: underline; /* Optional: Add a fade-out transition */
+}
 
+/* ==============================
+   ABOUT PAGE SPECIFIC STYLES
+   ============================== */
+
+body.about-page {
+    overflow: hidden;
+    position: relative;
+    background-color: #0a0a0a;
+}
+
+/* ---- VIDEO BACKGROUND (local file from repo) ---- */
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    opacity: 0.85;
+}
+
+/* optional dark overlay to ensure text stands out */
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ----- TEXT PANEL (centered, no blur) ----- */
+.about-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 600px;
+    width: 90%;
+    padding: 2rem 2.5rem;
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    font-family: KozMinPro, 'Times New Roman', serif;
+    color: #fefef7;
+    z-index: 20;
+    text-align: center;
+}
+
+.about-text h1 {
+    font-size: 2.2rem;
+    font-weight: 300;
+    letter-spacing: -0.3px;
+    margin-bottom: 1.5rem;
+    border-left: none;
+    padding-left: 0;
+}
+
+.about-text p {
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 300;
+    margin: 1rem 0;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* ==============================
+   PROJECT PAGE SPECIFIC STYLES
+   ============================== */
+
+body.work-page {
+    background-image: url('https://picsum.photos/id/1018/1920/1080'); 
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #0a0a0a;
+}
+
+/* optional: subtle overlay to improve text readability */
+body.work-page::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Project container - two column layout */
+.project-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    z-index: 2;
+    padding-top: 80px;
+}
+
+/* Left panel - text content */
+.project-left {
+    flex: 1;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    color: #eaeaea;
+    font-family: KozMinPro;
+}
+
+.project-title {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: -0.2px;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+    padding-left: 0.0rem;
+}
+
+.project-description {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    max-width: 500px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.download-link {
+    font-size: 14px;
+    color: rgb(230, 230, 230);
+    text-decoration: none;
+    cursor: pointer;
+    font-family: KozMinPro;
+    font-weight: bold;
+}
+
+.download-link:hover {
+    border-color: rgba(255, 245, 200, 1);
+    background-color: rgba(255, 245, 200, 0.05);
+}
+
+.skills-section {
+    margin-top: 0.2rem;
+}
+
+.skills-title {
+    font-size: 14px;
+    color: rgba(240, 240, 240, 0.86);
+    margin-bottom: 0.0rem;
+    font-weight: bold;
+}
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 14px;
+    font-weight: normal;
+    color: rgba(240, 240, 240, 0.86);
+    gap: 4px;
+}
+
+/* Right panel - image */
+.project-right {
+    flex: 1;
+    padding: 40px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.project-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+/* Responsive - stack on smaller screens */
+@media (max-width: 1024px) {
+    .project-container {
+        flex-direction: column;
+        padding-top: 100px;
+    }
+
+    .project-left,
+    .project-right {
+        flex: auto;
+        padding: 40px 30px;
+        min-height: 50vh;
+    }
+
+    .project-left {
+        justify-content: flex-start;
+    }
+
+    .project-title {
+        font-size: 1.8rem;
+    }
+
+    .project-description {
+        font-size: 0.95rem;
+    }
 }
