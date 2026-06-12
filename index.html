@@ -21,7 +21,7 @@
             left: 0;
             width: 100%;
             background-color: #000000;
-            transition: transform 10s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: transform 15s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             will-change: transform;
             z-index: 15;
             pointer-events: none;       /* allows clicking on navigation links through curtain */
@@ -134,7 +134,7 @@
                     // Fallback: in case transitionend is not fired (rare), remove after 10.3s
                     const fallbackTimeout = setTimeout(() => {
                         if (!cleanupDone) removePanels();
-                    }, 10300);
+                    }, 15300);
                     
                     topPanel.addEventListener('transitionend', onTransitionEnd);
                     bottomPanel.addEventListener('transitionend', onTransitionEnd);
@@ -191,7 +191,7 @@
                             if (bottomP.parentNode) bottomP.remove();
                         }, 300);
                     }
-                }, 10200);
+                }, 15200);
             });
         })();
     </script>
