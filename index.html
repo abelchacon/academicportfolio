@@ -21,7 +21,7 @@
             left: 0;
             width: 100%;
             background-color: #000000;
-            transition: transform 5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: transform 10s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             will-change: transform;
             z-index: 15;
             pointer-events: none;       /* allows clicking on navigation links through curtain */
@@ -74,7 +74,7 @@
      <script>
         (function() {
             // ----- WORKAROUND: eliminates ANY YouTube title banner / play button permanently -----
-            // The curtain animation covers the entire viewport for the first 5 seconds,
+            // The curtain animation covers the entire viewport for the first 10 seconds,
             // ensuring that even if YouTube tries to flash any UI, it's hidden beneath pure black.
             // After the reveal, pointer-events: none on iframe keeps all interactive YouTube chrome away.
             // Additionally, we add a master container class to trigger the center-split reveal.
@@ -82,7 +82,7 @@
             // Step 1: Insert the parent wrapper to apply 'reveal' state.
             // Since the curtain panels are direct children of body, we can add the 'reveal' class to the body
             // after a micro-tick, making the transition start exactly on page load.
-            // This guarantees: t=0 complete black -> t=5s video fully visible, with a cinematic "open from center" effect.
+            // This guarantees: t=0 complete black -> t=10s video fully visible, with a cinematic "open from center" effect.
             
             // For maximum smoothness, we ensure the animation runs after all assets are loaded,
             // but we also start it immediately via requestAnimationFrame to avoid any flicker.
@@ -98,14 +98,14 @@
             }
             
             function initRevealAnimation() {
-                // Add the 'reveal' class to <body> to trigger the 5-second animation
+                // Add the 'reveal' class to <body> to trigger the 10-second animation
                 // The panels will smoothly translate outward: top goes up, bottom goes down.
-                // After 5 seconds, the video background is fully unobstructed.
+                // After 10 seconds, the video background is fully unobstructed.
                 document.body.classList.add('reveal');
                 
                 // (Optional) Remove the curtain panels from the DOM after animation completes
                 // to free resources, but not necessary because they become invisible and pointer-events: none.
-                // However we remove them after 5.2 seconds to keep DOM clean & avoid any weird scrolling edge cases.
+                // However we remove them after 10.2 seconds to keep DOM clean & avoid any weird scrolling edge cases.
                 const topPanel = document.querySelector('.curtain-panel.top');
                 const bottomPanel = document.querySelector('.curtain-panel.bottom');
                 
@@ -131,10 +131,10 @@
                         }
                     };
                     
-                    // Fallback: in case transitionend is not fired (rare), remove after 5.3s
+                    // Fallback: in case transitionend is not fired (rare), remove after 10.3s
                     const fallbackTimeout = setTimeout(() => {
                         if (!cleanupDone) removePanels();
-                    }, 5300);
+                    }, 10300);
                     
                     topPanel.addEventListener('transitionend', onTransitionEnd);
                     bottomPanel.addEventListener('transitionend', onTransitionEnd);
@@ -176,7 +176,7 @@
                 // But we optionally ping iframe to ensure it's active. However the curtain animation already hides
                 // any initial loading glitch. The loop+autoplay parameters with mute guarantee playback attempt.
                 
-                // Also check if the curtain panels are still there after 5.5s if transitionend failed (edge case)
+                // Also check if the curtain panels are still there after 10.5s if transitionend failed (edge case)
                 setTimeout(() => {
                     const topP = document.querySelector('.curtain-panel.top');
                     const bottomP = document.querySelector('.curtain-panel.bottom');
@@ -191,7 +191,7 @@
                             if (bottomP.parentNode) bottomP.remove();
                         }, 300);
                     }
-                }, 5200);
+                }, 10200);
             });
         })();
     </script>
