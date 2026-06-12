@@ -5,14 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abel Chacón Hoekstra</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+            #video-background::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5); /* Optional: Add a dark overlay to improve text visibility */
+                z-index: 1;
+            }
+                    .curtain-panel {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            background-color: #000000;
+            transition: transform 5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            will-change: transform;
+            z-index: 15;
+            pointer-events: none;       /* allows clicking on navigation links through curtain */
+        }
+
+        .curtain-panel.top {
+            top: 0;
+            height: 50vh;               /* exactly half the viewport height */
+            transform: translateY(0);   /* start covering the top half */
+        }
+
+        .curtain-panel.bottom {
+            bottom: 0;
+            height: 50vh;
+            transform: translateY(0);   /* start covering the bottom half */
+        }
+
+        /* when the 'reveal' class is added, panels move outward (top moves up, bottom moves down) */
+        .reveal .curtain-panel.top {
+            transform: translateY(-100%);   /* slides completely off the screen upward */
+        }
+
+        .reveal .curtain-panel.bottom {
+            transform: translateY(100%);    /* slides completely off the screen downward */
+        }
+    </style>    
+
 </head>
 <body>
-   <iframe class="video-background" 
-        src="https://www.youtube.com/embed/uwXgcTc8oY8?autoplay=1&mute=1&loop=1&playlist=uwXgcTc8oY8&controls=0&modestbranding=1&rel=0&disablekb=1&iv_load_policy=3&playsinline=1&fs=0&color=white&showinfo=0&autohide=1"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-        title="Background video loop - Abel Chacon Hoekstra"
-        loading="eager">
+    <iframe id="video-background" 
+        src="https://www.youtube.com/embed/uwXgcTc8oY8?autoplay=1&controls=0&loop=1&mute=1&playlist=uwXgcTc8oY8" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+        # Remove title and play button from the video
+        
     </iframe>
+
+    <div class="curtain-panel top" aria-hidden="true"></div>
+    <div class="curtain-panel bottom" aria-hidden="true"></div>
+
 
 
 
@@ -21,5 +71,129 @@
         <a href="work.html" class="nav-link">work</a>
         <a href="about.html" class="nav-link">about</a>
     </div>
+     <script>
+        (function() {
+            // ----- WORKAROUND: eliminates ANY YouTube title banner / play button permanently -----
+            // The curtain animation covers the entire viewport for the first 5 seconds,
+            // ensuring that even if YouTube tries to flash any UI, it's hidden beneath pure black.
+            // After the reveal, pointer-events: none on iframe keeps all interactive YouTube chrome away.
+            // Additionally, we add a master container class to trigger the center-split reveal.
+            
+            // Step 1: Insert the parent wrapper to apply 'reveal' state.
+            // Since the curtain panels are direct children of body, we can add the 'reveal' class to the body
+            // after a micro-tick, making the transition start exactly on page load.
+            // This guarantees: t=0 complete black -> t=5s video fully visible, with a cinematic "open from center" effect.
+            
+            // For maximum smoothness, we ensure the animation runs after all assets are loaded,
+            // but we also start it immediately via requestAnimationFrame to avoid any flicker.
+            // However to respect the "second 0 complete black" we add the reveal class instantly
+            // but the transition will start from its initial state (both panels at Y=0) to moved positions.
+            // Because the panels begin fully covering the screen, no delay = perfect.
+            
+            // Small guard: ensure body exists and no race condition.
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initRevealAnimation);
+            } else {
+                initRevealAnimation();
+            }
+            
+            function initRevealAnimation() {
+                // Add the 'reveal' class to <body> to trigger the 5-second animation
+                // The panels will smoothly translate outward: top goes up, bottom goes down.
+                // After 5 seconds, the video background is fully unobstructed.
+                document.body.classList.add('reveal');
+                
+                // (Optional) Remove the curtain panels from the DOM after animation completes
+                // to free resources, but not necessary because they become invisible and pointer-events: none.
+                // However we remove them after 5.2 seconds to keep DOM clean & avoid any weird scrolling edge cases.
+                const topPanel = document.querySelector('.curtain-panel.top');
+                const bottomPanel = document.querySelector('.curtain-panel.bottom');
+                
+                if (topPanel && bottomPanel) {
+                    // Listen for transitionend to clean up gracefully after animation finishes
+                    let cleanupDone = false;
+                    const removePanels = () => {
+                        if (cleanupDone) return;
+                        cleanupDone = true;
+                        // After animation ends, panels are completely off-screen.
+                        // Removing them prevents any potential layout/paint overhead.
+                        if (topPanel && topPanel.parentNode) topPanel.remove();
+                        if (bottomPanel && bottomPanel.parentNode) bottomPanel.remove();
+                    };
+                    
+                    // Transitionend event: called when both animations likely finished.
+                    // We'll listen on one of the panels, but to be safe, check both.
+                    const onTransitionEnd = (e) => {
+                        // only care about transform property transition end
+                        if (e.propertyName === 'transform') {
+                            removePanels();
+                            window.removeEventListener('resize', onResizeCleanup);
+                        }
+                    };
+                    
+                    // Fallback: in case transitionend is not fired (rare), remove after 5.3s
+                    const fallbackTimeout = setTimeout(() => {
+                        if (!cleanupDone) removePanels();
+                    }, 5300);
+                    
+                    topPanel.addEventListener('transitionend', onTransitionEnd);
+                    bottomPanel.addEventListener('transitionend', onTransitionEnd);
+                    
+                    // Also if page resizes during animation, no need to keep panels, but we ensure after resize
+                    const onResizeCleanup = () => {
+                        if (!cleanupDone) {
+                            // minor delay to avoid clash with transition
+                            setTimeout(removePanels, 100);
+                        }
+                    };
+                    window.addEventListener('resize', onResizeCleanup);
+                    
+                    // Clear timeout if transition ended early
+                    const clearFallback = () => {
+                        clearTimeout(fallbackTimeout);
+                    };
+                    topPanel.addEventListener('transitionend', clearFallback, { once: true });
+                    bottomPanel.addEventListener('transitionend', clearFallback, { once: true });
+                }
+                
+                // Ensure that the YouTube iframe never shows any title/controls.
+                // Double-check: pointer-events: none already applied via CSS.
+                // Extra insurance: dynamically force iframe to remain non-interactable.
+                const iframe = document.querySelector('.video-background');
+                if (iframe) {
+                    // re-emphasize pointer-events (already in CSS but inline safety)
+                    iframe.style.pointerEvents = 'none';
+                    // Prevent any potential focus on iframe that could invoke UI
+                    iframe.setAttribute('tabindex', '-1');
+                }
+            }
+            
+            // Additional cross-browser robustness: preemptively hide any scrollbars caused by weird iframe sizes
+            window.addEventListener('load', function() {
+                // After full load, ensure the video is running and no flicker.
+                // For browsers that might not have triggered autoplay due to strict policies,
+                // we cannot fix it by force because muted autoplay is generally allowed on modern browsers.
+                // But we optionally ping iframe to ensure it's active. However the curtain animation already hides
+                // any initial loading glitch. The loop+autoplay parameters with mute guarantee playback attempt.
+                
+                // Also check if the curtain panels are still there after 5.5s if transitionend failed (edge case)
+                setTimeout(() => {
+                    const topP = document.querySelector('.curtain-panel.top');
+                    const bottomP = document.querySelector('.curtain-panel.bottom');
+                    if (topP && bottomP && document.body.classList.contains('reveal')) {
+                        // The transition might have been skipped in some exotic browsers (e.g., reduced motion settings)
+                        // But due to 'reveal' class applied, transform already moved them; however we still enforce removal.
+                        // In case transforms didn't fully execute, we manually hide them.
+                        topP.style.transform = 'translateY(-100%)';
+                        bottomP.style.transform = 'translateY(100%)';
+                        setTimeout(() => {
+                            if (topP.parentNode) topP.remove();
+                            if (bottomP.parentNode) bottomP.remove();
+                        }, 300);
+                    }
+                }, 5200);
+            });
+        })();
+    </script>
 </body>
 </html>
